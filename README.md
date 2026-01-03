@@ -10,7 +10,7 @@ Designed for high-performance statistical mechanics simulations, this engine uti
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
 * **HPC Architecture:** Flattened 1D memory layout for optimal CPU cache locality.
 * **Parallelism:** Thread-safe implementation using OpenMP and Red-Black (Checkerboard) domain decomposition.
@@ -18,7 +18,7 @@ Designed for high-performance statistical mechanics simulations, this engine uti
 * **Scientific Accuracy:** Uses **Mersenne Twister (mt19937)** for high-quality entropy (thread-local seeding).
 * **Reproducibility:** Fully Dockerized environment for consistent scientific results.
 
-## 📊 Scientific Results
+## Scientific Results
 
 ### 1. Phase Transition & Universality
 The engine successfully reproduces the ferromagnetic phase transition at $T_c \approx 2.27$.
@@ -40,7 +40,7 @@ The engine successfully reproduces the ferromagnetic phase transition at $T_c \a
 
 ---
 
-## 🛠️ Quick Start (Docker)
+##  Quick Start (Docker)
 
 You can replicate the full simulation and analysis pipeline without installing dependencies.
 
