@@ -5,8 +5,13 @@ import os
 
 # Configuration
 INPUT_FILE = "snapshots.txt"
-OUTPUT_FILE = "domain_growth.gif"
-L = 200  # Must match the C++ simulation
+# Save directly to the plots folder
+OUTPUT_DIR = "analysis/plots"
+OUTPUT_FILE = os.path.join(OUTPUT_DIR, "domain_growth.gif")
+L = 200
+
+# Ensure output directory exists
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 if not os.path.exists(INPUT_FILE):
     print(f"Error: {INPUT_FILE} not found. Run the C++ engine with --viz first.")
@@ -16,7 +21,6 @@ print("Loading data...")
 snapshots = []
 with open(INPUT_FILE, 'r') as f:
     for line in f:
-        # Parse space-separated spins
         spins = np.fromstring(line, dtype=int, sep=' ')
         snapshots.append(spins.reshape((L, L)))
 
@@ -34,6 +38,7 @@ def update(i):
     im.set_array(snapshots[i])
     return [im]
 
+# Reduced frames for smaller file size (optional)
 ani = animation.FuncAnimation(fig, update, frames=len(snapshots), interval=50, blit=True)
 ani.save(OUTPUT_FILE, writer='pillow', fps=20)
 

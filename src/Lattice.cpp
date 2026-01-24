@@ -26,6 +26,16 @@ void Lattice::flipSpin(int x, int y) {
     spins[x + y * N] *= -1;
 }
 
+// --- MISSING FUNCTION ADDED HERE ---
+int Lattice::getMagnetization() const {
+    int M = 0;
+    for (int s : spins) {
+        M += s;
+    }
+    return M;
+}
+// -----------------------------------
+
 // Optimized Neighbor Sum (No Modulo)
 double Lattice::getNeighborSum(int x, int y) const {
     double sum = 0.0;
@@ -67,7 +77,8 @@ void Lattice::precomputeExponentials(double T) {
     prob_table[8] = std::exp(-8.0 * J / T);
 }
 
-void Lattice::metropolisSweepOMP(double T) {
+// Removed unused 'T' parameter name to fix warning
+void Lattice::metropolisSweepOMP(double /*T*/) {
     for (int parity = 0; parity < 2; ++parity) {
 #pragma omp parallel
         {
@@ -82,8 +93,6 @@ void Lattice::metropolisSweepOMP(double T) {
             for (int y = 0; y < N; ++y) {
                 int start_x = (y % 2 == parity) ? 0 : 1;
                 for (int x = start_x; x < N; x += 2) {
-                    // Inlined neighbor sum for OMP loop could go here,
-                    // but the optimized getNeighborSum is now fast enough.
                     double neighborSum = getNeighborSum(x, y);
                     int currentSpin = spins[x + y * N];
                     int deltaE = static_cast<int>(2.0 * J * currentSpin * neighborSum);

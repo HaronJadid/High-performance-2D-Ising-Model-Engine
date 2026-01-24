@@ -25,7 +25,7 @@ The engine successfully reproduces the ferromagnetic phase transition at $T_c \a
 
 | Finite Size Scaling (Data Collapse) | Phase Ordering Kinetics |
 |:-----------------------------------:|:-----------------------:|
-| ![Data Collapse](analysis/plots/data_collapse.png) | ![Domain Growth](analysis/plots/domain_growth_gif_placeholder.gif) |
+| ![Data Collapse](analysis/plots/data_collapse.png) | ![Domain Growth](analysis/plots/domain_growth.gif) |
 | *Collapse of susceptibility curves confirming $\gamma=1.75, \nu=1.0$* | *Spontaneous symmetry breaking (Quench $T=\infty \to 1.0$)* |
 
 ### 2. Performance Benchmarks
