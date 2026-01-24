@@ -1,34 +1,26 @@
 # Discrete 2D Ising Model Monte Carlo Simulation Engine
 
-High-performance C++ engine for simulating the 2D Ising Model using the Metropolis algorithm.
+##  Key Features
 
-## Structure
+* **HPC Architecture:** Flattened 1D memory layout for optimal CPU cache locality.
+* **Parallelism:** Thread-safe implementation using OpenMP and Red-Black (Checkerboard) domain decomposition.
+* **Optimization:** Precomputed Boltzmann lookup tables to bypass expensive transcendental functions.
+* **Scientific Accuracy:** Uses **Mersenne Twister (mt19937)** for high-quality entropy (thread-local seeding).
+* **Reproducibility:** Fully Dockerized environment for consistent scientific results.
 
-- `src/`: Source code (C++).
-- `analysis/`: Python scripts for data analysis and plotting.
-- `data/`: Directory for storing simulation data.
+## Scientific Results
 
-## Quick Start (Docker)
-
-Run the full simulation and generate the visualization in one command:
+## Build
 
 ```bash
-# Build the container
-docker build -t ising-hpc .
-
-# Run simulation & generate GIF (Outputs to mapped volume)
-docker run -v $(pwd):/app/output ising-hpc cp domain_growth.gif /app/output/
+mkdir build
+cd build
+cmake ..
+make
 ```
-## Visualization
-To observe domain coarsening (Spontaneous Symmetry Breaking):
 
-- Run `./IsingModelSim --viz` (Generates snapshots.txt)
+## Usage
 
-- Run `python3 analysis/visualize.py`
-
-- Result: `domain_growth.gif`
-
-## Optimization Details
-- Bitwise Neighbor Lookup: Replaced modulo operators with conditional logic for PBC.
-
-- Cache Aligned Arrays: std::vector<int> flat layout ensures contiguous memory access.
+```bash
+./IsingModelSim
+```
