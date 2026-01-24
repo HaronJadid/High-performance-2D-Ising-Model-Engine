@@ -8,17 +8,27 @@ High-performance C++ engine for simulating the 2D Ising Model using the Metropol
 - `analysis/`: Python scripts for data analysis and plotting.
 - `data/`: Directory for storing simulation data.
 
-## Build
+## Quick Start (Docker)
+
+Run the full simulation and generate the visualization in one command:
 
 ```bash
-mkdir build
-cd build
-cmake ..
-make
-```
+# Build the container
+docker build -t ising-hpc .
 
-## Usage
-
-```bash
-./IsingModelSim
+# Run simulation & generate GIF (Outputs to mapped volume)
+docker run -v $(pwd):/app/output ising-hpc cp domain_growth.gif /app/output/
 ```
+## Visualization
+To observe domain coarsening (Spontaneous Symmetry Breaking):
+
+- Run `./IsingModelSim --viz` (Generates snapshots.txt)
+
+- Run `python3 analysis/visualize.py`
+
+- Result: `domain_growth.gif`
+
+## Optimization Details
+- Bitwise Neighbor Lookup: Replaced modulo operators with conditional logic for PBC.
+
+- Cache Aligned Arrays: std::vector<int> flat layout ensures contiguous memory access.

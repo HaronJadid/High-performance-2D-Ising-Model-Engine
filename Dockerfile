@@ -1,21 +1,26 @@
-# Use a base image with GCC and CMake installed
+# Use a base image with GCC, CMake, and Python
 FROM gcc:latest
 
-# Install CMake
-RUN apt-get update && apt-get install -y cmake
+# Install CMake and Python
+RUN apt-get update && apt-get install -y \
+    cmake \
+    python3 \
+    python3-pip \
+    python3-venv
 
-# Set the working directory
+# Set up Python Virtual Environment (Best practice for newer Debian/Ubuntu images)
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+# Install Python scientific libraries
+RUN pip install numpy matplotlib pandas
+
 WORKDIR /app
-
-# Copy the source code
 COPY . .
 
-# Create a build directory
-RUN mkdir build
+# Build C++ Project
+RUN mkdir build && cd build && cmake .. && make
 
-# Build the project
-WORKDIR /app/build
-RUN cmake .. && make
-
-# Command to run the application (optional, adjust as needed)
-CMD ["./IsingModelSim"]
+# Default command: Run Visualization Pipeline
+CMD ["/bin/bash", "-c", "./build/IsingModelSim --viz && python3 analysis/visualize.py"]

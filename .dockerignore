@@ -1,0 +1,24 @@
+# Ignore local build artifacts
+build/
+cmake-build-debug/
+cmake-build-release/
+bin/
+*.exe
+*.o
+*.obj
+
+# Ignore IDE settings
+.idea/
+.vscode/
+
+# Ignore Python/Git clutter
+venv/
+__pycache__/
+.git/
+.gitignore
+
+# Ignore data (let the container generate its own or mount it)
+data/*.csv
+*.txt
+
+!CMakeLists.txt
