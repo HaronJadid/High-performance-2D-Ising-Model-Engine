@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-venv
 
-# Set up Python Virtual Environment (Best practice for newer Debian/Ubuntu images)
+# Set up Python Virtual Environment
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
